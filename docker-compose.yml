@@ -1,0 +1,16 @@
+services:
+  fhir-ingest:
+    build: .
+    image: lis-fhir-ingest:1.0.0
+    ports:
+      - "8000:8000"
+    environment:
+      FHIR_BASE_URL: http://localhost:8000
+      FHIR_DB_PATH: /data/fhir.sqlite3
+      FHIR_MAX_BUNDLE_ENTRIES: "30"
+    volumes:
+      - fhir-data:/data
+    restart: unless-stopped
+
+volumes:
+  fhir-data:
